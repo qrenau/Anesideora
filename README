@@ -1,0 +1,32 @@
+Genereate samples form a Sobol' low-discrepancy sequence (sample_generator.py):
+    - Requirements: os, argparse, sobol_seq, numpy and, random.
+    - Arguments:
+        - --dimension: dimension of samples;
+        - --sampling_number: number of independent sample files;
+        - --lower_bound: value of the lower bound of the sample points;
+        - --upper_bound: value of the upper bound of the sample points;
+        - --search_points: number of points to genereate.
+    - Output:
+        - sampling_number sample files with search_points number of points between [lower_bound, upper_bound]^dimension in a folder "Sampling".
+
+Compute landscape features using the pflacco package on the BBOB functions (compute_landscape_features.py):
+    - Requirements: os, json, argparse, numpy, ioh and, pflacco.
+    - Inputs:
+        - Sample files in the Sampling folder.
+    - Arguments:
+        - --dimension: dimension of the objective function;
+        - --sampling_ID: ID of the sample file;
+        - --feature_set: feature set to compute (disp, ela_distr, ela_meta, ic, nbc, pca or all);
+        - --functionID: ID of the BBOB funtion (between 1 and 24);
+        - --instanceID: ID of the BBOB instance;
+        - --function_set: set of the function (BBOB and to be extented).
+    - Output:
+        - One feature file by function, instance and, feature set in the "Feature_values" folder.
+
+Train a selector that combine feature data and algorithm data (train_selector.py):
+    - Requirements: os, json, numpy, pickle, pandas and, sklearn
+    - Inputs:
+        - Feature files in the Feature_values folder;
+        - Best algorithm by function in the data_algo.csv file.
+    - Output:
+        - A pickled selector selector.p
